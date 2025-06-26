@@ -1,6 +1,8 @@
 // api/index.ts
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { Client, Message, middleware, TextMessage, WebhookEvent } from '@line/bot-sdk';
+import 'dotenv/config'; 
+
 // ติดตั้ง @vercel/node เพื่อใช้ Type เหล่านี้: npm install @vercel/node
 // export default function (request: VercelRequest, response: VercelResponse) {
 //   response.status(200).json({
