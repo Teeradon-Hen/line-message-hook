@@ -35,7 +35,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 app.get('/', (req, res) => {
-    res.json({ message: 'Hello from Vercel Express API with TypeScript!' });
+    res.json({ message: 'Hello from Vercel Express API with TypeScript!', config });
 });
 
 app.get('/users/:id', (req, res) => {
@@ -71,7 +71,7 @@ async function handleEvent(event: WebhookEvent): Promise<any> {
     // ตรวจสอบประเภทของเหตุการณ์ว่าเป็นข้อความและเป็นข้อความตัวอักษรหรือไม่
     if (event.type === 'message' && event.message.type === 'text') {
         const { replyToken } = event;
-        const { text } = event.message;
+        const { text } = event.message ?? {};
         x.push({ ind: x.length, event })
 
         console.log(`Received message: "${text}" from user: ${event.source.userId}`);
@@ -88,11 +88,7 @@ async function handleEvent(event: WebhookEvent): Promise<any> {
     } else {
         // สำหรับเหตุการณ์อื่นๆ หรือข้อความประเภทอื่นๆ (รูปภาพ, สติ๊กเกอร์ ฯลฯ)
         // คุณสามารถเพิ่ม logic การจัดการในอนาคตได้
-        if ('message' in event && event.message && 'type' in event.message) {
-            console.log(`Unhandled event type: ${event.type} or message type: ${event.message.type}`, event);
-        } else {
-            console.log(`Unhandled event type: ${event.type}`, event);
-        }
+        console.log(`Unhandled event type: ${event.type}`, event);
     }
 }
 
